@@ -21,6 +21,7 @@ class CzFreeProxyCrawler(BaseCrawler):
         doc = pq(html)
         trs = doc('#proxy_list > tbody > tr').items()
         for tr in trs:
+            # noinspection PyBroadException
             try:
                 _host = tr.find('td:nth-child(1) > script').text().replace('document.write(Base64.decode("', '').replace('"))', '')
                 host = base64.b64decode(_host.encode('utf-8')).decode('utf-8')
